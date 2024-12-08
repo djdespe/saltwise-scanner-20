@@ -1,13 +1,13 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
-  { day: 'Mon', salt: 4.2 },
-  { day: 'Tue', salt: 3.8 },
-  { day: 'Wed', salt: 4.5 },
-  { day: 'Thu', salt: 3.2 },
-  { day: 'Fri', salt: 4.8 },
-  { day: 'Sat', salt: 3.9 },
-  { day: 'Sun', salt: 4.1 },
+  { day: 'Lun', salt: 4.2 },
+  { day: 'Mar', salt: 3.8 },
+  { day: 'Mer', salt: 4.5 },
+  { day: 'Jeu', salt: 3.2 },
+  { day: 'Ven', salt: 4.8 },
+  { day: 'Sam', salt: 3.9 },
+  { day: 'Dim', salt: 4.1 },
 ];
 
 const DailySaltChart = () => {
@@ -22,7 +22,7 @@ const DailySaltChart = () => {
           <Line 
             type="monotone" 
             dataKey="salt" 
-            stroke="hsl(var(--primary))" 
+            stroke="#f59e0b"
             strokeWidth={2}
           />
         </LineChart>

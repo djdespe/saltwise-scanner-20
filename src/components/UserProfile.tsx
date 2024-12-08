@@ -13,7 +13,7 @@ const UserProfile = ({ onClose }: UserProfileProps) => {
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-semibold">Profile Settings</h2>
+          <h2 className="text-lg font-semibold">Paramètres du Profil</h2>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-4 w-4" />
           </Button>
@@ -21,26 +21,26 @@ const UserProfile = ({ onClose }: UserProfileProps) => {
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
-            <Input id="name" placeholder="Enter your name" />
+            <Label htmlFor="name">Nom</Label>
+            <Input id="name" placeholder="Entrez votre nom" />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="age">Age</Label>
-            <Input id="age" type="number" placeholder="Enter your age" />
+            <Label htmlFor="age">Âge</Label>
+            <Input id="age" type="number" placeholder="Entrez votre âge" />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="weight">Weight (kg)</Label>
-            <Input id="weight" type="number" placeholder="Enter your weight" />
+            <Label htmlFor="weight">Poids (kg)</Label>
+            <Input id="weight" type="number" placeholder="Entrez votre poids" />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="dailyLimit">Daily Salt Limit (g)</Label>
+            <Label htmlFor="dailyLimit">Limite Quotidienne de Sel (g)</Label>
             <Input id="dailyLimit" type="number" defaultValue="5" />
           </div>
 
-          <Button className="w-full">Save Changes</Button>
+          <Button className="w-full bg-amber-500 hover:bg-amber-600">Enregistrer les Modifications</Button>
         </div>
       </DialogContent>
     </Dialog>

@@ -18,9 +18,8 @@ const Index = () => {
   const { toast } = useToast();
 
   const handleScan = (barcode: string) => {
-    // Mock scan result - in real app would call API
     const mockProduct = {
-      name: "Test Product",
+      name: "Produit Test",
       saltPer100g: 0.5,
       servingSize: 100
     };
@@ -31,8 +30,8 @@ const Index = () => {
     if (newSaltAmount > MAX_DAILY_SALT) {
       toast({
         variant: "destructive",
-        title: "Daily Salt Limit Exceeded",
-        description: "You've exceeded your recommended daily salt intake.",
+        title: "Limite Quotidienne de Sel Dépassée",
+        description: "Vous avez dépassé votre apport quotidien recommandé en sel.",
       });
     }
     
@@ -42,14 +41,14 @@ const Index = () => {
   return (
     <div className="container mx-auto px-4 py-8 max-w-md">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold">Salt Tracker</h1>
+        <h1 className="text-2xl font-bold">Suivi du Sel</h1>
         <Button variant="ghost" size="icon" onClick={() => setShowProfile(true)}>
           <User className="h-5 w-5" />
         </Button>
       </div>
 
-      <Card className="p-6 mb-6">
-        <h2 className="text-lg font-semibold mb-4">Daily Salt Intake</h2>
+      <Card className="p-6 mb-6 bg-orange-50">
+        <h2 className="text-lg font-semibold mb-4">Consommation Quotidienne de Sel</h2>
         <Progress value={(dailySalt / MAX_DAILY_SALT) * 100} className="mb-2" />
         <p className="text-sm text-muted-foreground">
           {dailySalt.toFixed(1)}g / {MAX_DAILY_SALT / 1000}g
@@ -57,18 +56,24 @@ const Index = () => {
       </Card>
 
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <Button onClick={() => setShowScanner(true)} className="flex flex-col items-center py-8">
+        <Button 
+          onClick={() => setShowScanner(true)} 
+          className="flex flex-col items-center py-8 bg-amber-500 hover:bg-amber-600"
+        >
           <Scan className="h-6 w-6 mb-2" />
-          Scan Product
+          Scanner Produit
         </Button>
-        <Button variant="outline" className="flex flex-col items-center py-8">
+        <Button 
+          variant="outline" 
+          className="flex flex-col items-center py-8 border-amber-500 text-amber-700 hover:bg-amber-50"
+        >
           <Search className="h-6 w-6 mb-2" />
-          Search Product
+          Rechercher Produit
         </Button>
       </div>
 
-      <Card className="p-6">
-        <h2 className="text-lg font-semibold mb-4">Weekly Overview</h2>
+      <Card className="p-6 bg-orange-50">
+        <h2 className="text-lg font-semibold mb-4">Aperçu Hebdomadaire</h2>
         <DailySaltChart />
       </Card>
 
