@@ -13,9 +13,13 @@ export interface Product {
 }
 
 export const searchProductByBarcode = async (barcode: string): Promise<Product> => {
+  console.log('Recherche du produit:', barcode);
   const response = await fetch(`${BASE_URL}/product/${barcode}`);
   if (!response.ok) {
+    console.error('Erreur API:', response.status);
     throw new Error('Produit non trouvé');
   }
-  return response.json();
+  const data = await response.json();
+  console.log('Données du produit:', data);
+  return data;
 };
