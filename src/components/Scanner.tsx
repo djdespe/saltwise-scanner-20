@@ -71,7 +71,7 @@ const Scanner = ({ onScan, onClose }: ScannerProps) => {
     
     setIsScanning(true);
     try {
-      const result: Result = await codeReader.current.decodeOnceFromVideoElement(videoRef.current);
+      const result = await codeReader.current.decodeFromVideoElement(videoRef.current);
       if (result && result.getText()) {
         handleProductSearch(result.getText());
       }
