@@ -90,8 +90,7 @@ const Index = () => {
         <h2 className="text-lg font-semibold mb-4 text-amber-800">Consommation Quotidienne de Sel</h2>
         <Progress 
           value={(dailySalt / MAX_DAILY_SALT) * 100} 
-          className="mb-2 bg-amber-100" 
-          indicatorClassName="bg-gradient-to-r from-amber-400 to-orange-500"
+          className="mb-2 bg-amber-100"
         />
         <p className="text-sm text-amber-700">
           {dailySalt.toFixed(1)}g / {MAX_DAILY_SALT / 1000}g
