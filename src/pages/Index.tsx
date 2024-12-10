@@ -5,13 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Scan, Search, User, AlertCircle } from "lucide-react";
+import { Scan, Search, User } from "lucide-react";
 import Scanner from '@/components/Scanner';
 import DailySaltChart from '@/components/DailySaltChart';
 import UserProfile from '@/components/UserProfile';
 import { searchProductByBarcode } from "@/services/api";
 
-const MAX_DAILY_SALT = 5000; // 5g recommended by WHO
+const MAX_DAILY_SALT = 5000; // 5g recommandé par l'OMS
 
 const Index = () => {
   const [showScanner, setShowScanner] = useState(false);
@@ -21,7 +21,7 @@ const Index = () => {
   const [dailySalt, setDailySalt] = useState(0);
   const { toast } = useToast();
 
-  const handleScan = (barcode: string) => {
+  const handleScan = async (barcode: string) => {
     handleProductSearch(barcode);
     setShowScanner(false);
   };
