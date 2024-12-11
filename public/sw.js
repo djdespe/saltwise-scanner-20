@@ -1,10 +1,10 @@
 const CACHE_NAME = 'saltwise-v1';
 const urlsToCache = [
-  './',
-  './index.html',
-  './manifest.json',
-  './icon-192x192.png',
-  './icon-512x512.png'
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/icon-192x192.png',
+  '/icon-512x512.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -34,35 +34,19 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Ne pas mettre en cache les requêtes vers l'API OpenFoodFacts
-  if (event.request.url.includes('openfoodfacts.org')) {
-    event.respondWith(fetch(event.request));
-    return;
-  }
-
-  // Gérer les requêtes avec des chemins relatifs
-  const url = new URL(event.request.url);
-  const requestPath = url.pathname.replace(/^\/[^/]+/, '') || './';
-
   event.respondWith(
-    caches.match(requestPath)
-      .then((response) => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).then(
-          (response) => {
-            if(!response || response.status !== 200 || response.type !== 'basic') {
+    fetch(event.request)
+      .catch(() => {
+        return caches.match(event.request)
+          .then((response) => {
+            if (response) {
               return response;
             }
-            const responseToCache = response.clone();
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-            return response;
-          }
-        );
+            if (event.request.mode === 'navigate') {
+              return caches.match('/index.html');
+            }
+            return new Response('Not found', { status: 404 });
+          });
       })
   );
 });
