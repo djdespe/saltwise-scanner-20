@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { searchProductByBarcode } from "@/services/api";
-import { BrowserMultiFormatReader, Result } from '@zxing/library';
+import { BrowserMultiFormatReader } from '@zxing/library';
 
 interface ScannerProps {
   onScan: (barcode: string) => void;
@@ -14,7 +14,6 @@ interface ScannerProps {
 const Scanner = ({ onScan, onClose }: ScannerProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasCamera, setHasCamera] = useState(false);
-  const [isScanning, setIsScanning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const codeReader = useRef<BrowserMultiFormatReader>();
   const { toast } = useToast();
@@ -40,8 +39,8 @@ const Scanner = ({ onScan, onClose }: ScannerProps) => {
             videoRef.current.srcObject = stream;
           }
 
-          // Initialiser ZXing
           codeReader.current = new BrowserMultiFormatReader();
+          startScanning();
         }
       } catch (error) {
         console.error('Erreur accès caméra:', error);
@@ -67,23 +66,17 @@ const Scanner = ({ onScan, onClose }: ScannerProps) => {
   }, [toast]);
 
   const startScanning = async () => {
-    if (!codeReader.current || !videoRef.current || isScanning) return;
+    if (!codeReader.current || !videoRef.current) return;
     
-    setIsScanning(true);
     try {
-      const result = await codeReader.current.decodeFromVideoElement(videoRef.current);
-      if (result && result.getText()) {
-        handleProductSearch(result.getText());
-      }
+      console.log('Démarrage du scan...');
+      const result = await codeReader.current.decodeOnceFromVideoElement(videoRef.current);
+      console.log('Code-barres détecté:', result.getText());
+      handleProductSearch(result.getText());
     } catch (error) {
       console.error('Erreur scan:', error);
-      toast({
-        variant: "destructive",
-        title: "Erreur Scan",
-        description: "Impossible de lire le code-barres. Réessayez.",
-      });
-    } finally {
-      setIsScanning(false);
+      // Redémarrer le scan après une erreur
+      setTimeout(startScanning, 1000);
     }
   };
 
@@ -93,11 +86,11 @@ const Scanner = ({ onScan, onClose }: ScannerProps) => {
       console.log('Recherche du produit:', barcode);
       const product = await searchProductByBarcode(barcode);
       
-      if (product.product.nutriments.salt_100g) {
+      if (product.product?.nutriments?.salt_100g) {
         onScan(barcode);
         toast({
           title: "Produit trouvé",
-          description: `${product.product.product_name} - Sel: ${product.product.nutriments.salt_100g}g/100g`,
+          description: `${product.product.product_name || 'Produit'} - Sel: ${product.product.nutriments.salt_100g}g/100g`,
         });
       } else {
         toast({
@@ -115,6 +108,8 @@ const Scanner = ({ onScan, onClose }: ScannerProps) => {
       });
     } finally {
       setIsLoading(false);
+      // Redémarrer le scan après la recherche
+      startScanning();
     }
   };
 
@@ -151,13 +146,9 @@ const Scanner = ({ onScan, onClose }: ScannerProps) => {
           )}
         </div>
 
-        <Button 
-          onClick={startScanning} 
-          className="w-full bg-amber-500 hover:bg-amber-600"
-          disabled={isLoading || !hasCamera || isScanning}
-        >
-          {isLoading ? "Recherche..." : isScanning ? "Scan en cours..." : "Scanner Code-barres"}
-        </Button>
+        <p className="text-sm text-gray-500 text-center mb-4">
+          {isLoading ? "Recherche en cours..." : "Placez le code-barres dans le cadre"}
+        </p>
       </DialogContent>
     </Dialog>
   );
