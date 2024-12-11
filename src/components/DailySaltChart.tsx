@@ -15,15 +15,31 @@ const DailySaltChart = () => {
     <div className="h-[200px] w-full">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
-          <YAxis />
-          <Tooltip />
+          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+          <XAxis 
+            dataKey="day" 
+            stroke="#666"
+            tick={{ fill: '#666' }}
+          />
+          <YAxis 
+            stroke="#666"
+            tick={{ fill: '#666' }}
+          />
+          <Tooltip 
+            contentStyle={{
+              background: 'rgba(255, 255, 255, 0.9)',
+              border: 'none',
+              borderRadius: '12px',
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+            }}
+          />
           <Line 
             type="monotone" 
             dataKey="salt" 
-            stroke="#f59e0b"
+            stroke="#ff7c2d"
             strokeWidth={2}
+            dot={{ fill: '#ff7c2d', strokeWidth: 2 }}
+            activeDot={{ r: 6, fill: '#ff7c2d' }}
           />
         </LineChart>
       </ResponsiveContainer>

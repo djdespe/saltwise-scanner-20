@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 48 96% 96%;
+    --background: 39 38% 95%;
     --foreground: 38 92% 50%;
     
     --card: 0 0% 100%;
@@ -13,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 38 92% 50%;
     
-    --primary: 38 92% 50%;
+    --primary: 32 95% 55%;
     --primary-foreground: 48 96% 96%;
     
     --secondary: 48 96% 96%;
@@ -32,7 +32,7 @@
     --input: 38 92% 50%;
     --ring: 38 92% 50%;
 
-    --radius: 0.75rem;
+    --radius: 1.5rem;
   }
 }
 
@@ -41,7 +41,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-b from-[#fdfcfb] to-[#e2d1c3] min-h-screen;
   }
 }
 

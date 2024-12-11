@@ -73,26 +73,26 @@ const Index = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-md min-h-screen bg-gradient-to-b from-amber-50 to-orange-100">
+    <div className="container mx-auto px-4 py-8 max-w-md">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-amber-700">SaltWise Scanner</h1>
         <Button 
           variant="ghost" 
           size="icon" 
           onClick={() => setShowProfile(true)}
-          className="hover:bg-amber-200 transition-colors"
+          className="hover:bg-amber-200/50 transition-colors rounded-full"
         >
           <User className="h-5 w-5 text-amber-700" />
         </Button>
       </div>
 
-      <Card className="p-6 mb-6 bg-white/80 backdrop-blur-sm border-amber-200 shadow-lg animate-fade-in">
+      <Card className="p-6 mb-6 bg-white/90 backdrop-blur-sm border-0 shadow-lg animate-fade-in rounded-[24px]">
         <h2 className="text-lg font-semibold mb-4 text-amber-800">Consommation Quotidienne de Sel</h2>
         <Progress 
           value={(dailySalt / MAX_DAILY_SALT) * 100} 
-          className="mb-2 h-2 bg-amber-100"
+          className="mb-2 h-3 bg-amber-100 rounded-full overflow-hidden"
         />
-        <p className="text-sm text-amber-700">
+        <p className="text-sm text-amber-700 font-medium">
           {dailySalt.toFixed(1)}g / {MAX_DAILY_SALT / 1000}g
         </p>
       </Card>
@@ -100,21 +100,21 @@ const Index = () => {
       <div className="grid grid-cols-2 gap-4 mb-6">
         <Button 
           onClick={() => setShowScanner(true)} 
-          className="flex flex-col items-center py-8 bg-gradient-to-br from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 shadow-lg transform hover:scale-105 transition-all duration-200"
+          className="flex flex-col items-center py-8 bg-gradient-to-br from-amber-400 to-orange-500 hover:from-amber-500 hover:to-orange-600 shadow-lg transform hover:scale-105 transition-all duration-200 rounded-[24px] border-0"
         >
           <Scan className="h-6 w-6 mb-2" />
           Scanner Produit
         </Button>
         <Button 
           onClick={() => setShowSearch(true)}
-          className="flex flex-col items-center py-8 bg-white hover:bg-amber-50 border-2 border-amber-400 text-amber-700 shadow-lg transform hover:scale-105 transition-all duration-200"
+          className="flex flex-col items-center py-8 bg-white hover:bg-amber-50 border-2 border-amber-400 text-amber-700 shadow-lg transform hover:scale-105 transition-all duration-200 rounded-[24px]"
         >
           <Search className="h-6 w-6 mb-2" />
           Rechercher Produit
         </Button>
       </div>
 
-      <Card className="p-6 bg-white/80 backdrop-blur-sm border-amber-200 shadow-lg animate-fade-in">
+      <Card className="p-6 bg-white/90 backdrop-blur-sm border-0 shadow-lg animate-fade-in rounded-[24px]">
         <h2 className="text-lg font-semibold mb-4 text-amber-800">Aperçu Hebdomadaire</h2>
         <DailySaltChart />
       </Card>
