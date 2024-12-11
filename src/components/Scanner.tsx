@@ -70,7 +70,7 @@ const Scanner = ({ onScan, onClose }: ScannerProps) => {
     
     try {
       console.log('Démarrage du scan...');
-      const result = await codeReader.current.decodeOnceFromVideoElement(videoRef.current);
+      const result = await codeReader.current.decodeFromVideoElement(videoRef.current);
       console.log('Code-barres détecté:', result.getText());
       handleProductSearch(result.getText());
     } catch (error) {
